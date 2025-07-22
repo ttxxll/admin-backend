@@ -52,9 +52,9 @@ public class MyBatisPlusGenerator {
         dsConfig.setDbType(DbType.MYSQL)
                 .setDriverName("com.mysql.cj.jdbc.Driver")
                 //TODO  TODO  TODO  TODO
-                .setUrl("jdbc:mysql://gaea.test.mysql01.b2c.srv:13306/browser?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai")
-                .setUsername("browser_wn")
-                .setPassword("Tp5ufoo1ziUyYrhqvonoXpKh6RYZC3EV");
+                .setUrl("jdbc:mysql://localhost:3306/admin-backend?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai")
+                .setUsername("root")
+                .setPassword("root");
 
         //3. 策略配置globalConfiguration中
         StrategyConfig stConfig = new StrategyConfig();
@@ -72,7 +72,7 @@ public class MyBatisPlusGenerator {
 
                 // 生成的表, 支持多表一起生成，以数组形式填写
                 //TODO  TODO  TODO  TODO
-                .setInclude("doc_comment_review_record", "comment_offline_record");
+                .setInclude("send_code_merchant_info", "send_code_biz_info", "send_code_merchant_biz_rel", "send_code_record", "send_code_platform_info", "recharge_record");
 
         //4. 包名策略配置
         PackageConfig pkConfig = new PackageConfig();
