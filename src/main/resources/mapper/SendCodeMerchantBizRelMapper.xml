@@ -6,14 +6,21 @@
     <resultMap id="BaseResultMap" type="admin.model.SendCodeMerchantBizRel">
         <id column="id" property="id" />
         <result column="merchant_id" property="merchantId" />
+        <result column="account" property="account" />
         <result column="biz_code" property="bizCode" />
+        <result column="quantity" property="quantity" />
+        <result column="used_quantity" property="usedQuantity" />
+        <result column="unit_price" property="unitPrice" />
+        <result column="send_platform_code" property="sendPlatformCode" />
+        <result column="send_platform_name" property="sendPlatformName" />
+        <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, merchant_id, biz_code, create_time, update_time
+        id, merchant_id, account, biz_code, quantity, used_quantity, unit_price, send_platform_code, send_platform_name, status, create_time, update_time
     </sql>
 
 </mapper>

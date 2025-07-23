@@ -72,7 +72,7 @@ public class MyBatisPlusGenerator {
 
                 // 生成的表, 支持多表一起生成，以数组形式填写
                 //TODO  TODO  TODO  TODO
-                .setInclude("send_code_merchant_info", "send_code_biz_info", "send_code_merchant_biz_rel", "send_code_record", "send_code_platform_info", "recharge_record");
+                .setInclude("send_code_biz_info", "send_code_merchant_biz_rel");
 
         //4. 包名策略配置
         PackageConfig pkConfig = new PackageConfig();

@@ -18,26 +18,6 @@ public class SendCodeBizInfoBase {
     private String bizName;
 
     /**
-     * 商户id
-     */
-    private Long merchantId;
-
-    /**
-     * 账户名
-     */
-    private String account;
-
-    /**
-     * 总数量
-     */
-    private Integer quantity;
-
-    /**
-     * 已使用数量
-     */
-    private Integer usedQuantity;
-
-    /**
      * 单价
      */
     private BigDecimal unitPrice;
@@ -51,4 +31,9 @@ public class SendCodeBizInfoBase {
      * 发送平台名称
      */
     private String sendPlatformName;
+
+    /**
+     * 状态：0-禁用，1-启用
+     */
+    private Integer status;
 }

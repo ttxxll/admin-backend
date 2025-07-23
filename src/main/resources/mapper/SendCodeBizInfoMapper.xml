@@ -7,20 +7,17 @@
         <id column="id" property="id" />
         <result column="biz_code" property="bizCode" />
         <result column="biz_name" property="bizName" />
-        <result column="merchant_id" property="merchantId" />
-        <result column="account" property="account" />
-        <result column="quantity" property="quantity" />
-        <result column="used_quantity" property="usedQuantity" />
         <result column="unit_price" property="unitPrice" />
         <result column="send_platform_code" property="sendPlatformCode" />
         <result column="send_platform_name" property="sendPlatformName" />
+        <result column="status" property="status" />
         <result column="update_time" property="updateTime" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, biz_code, biz_name, merchant_id, account, quantity, used_quantity, unit_price, send_platform_code, send_platform_name, update_time, create_time
+        id, biz_code, biz_name, unit_price, send_platform_code, send_platform_name, status, update_time, create_time
     </sql>
 
 </mapper>
