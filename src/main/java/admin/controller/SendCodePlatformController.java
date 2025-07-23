@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 发码业务信息 前端控制器
+ * 下发编码平台 前端控制器
  * </p>
  *
  * @author no
  * @since 2025-07-22
  */
 @RestController
-@RequestMapping("/sendCodeBizInfo")
-public class SendCodeBizInfoController {
+@RequestMapping("/codePlatform")
+public class SendCodePlatformController {
 
 }
 

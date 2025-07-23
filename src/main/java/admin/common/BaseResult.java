@@ -53,7 +53,7 @@ public class BaseResult {
      * @return
      */
     public static BaseResult buildSuccess(Object data) {
-        return new BaseResult(0, data, null);
+        return new BaseResult(0, data, "success");
     }
 
     /**

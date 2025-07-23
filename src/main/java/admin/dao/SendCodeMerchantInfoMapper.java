@@ -3,6 +3,8 @@ package admin.dao;
 import admin.model.SendCodeMerchantInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 发码业务商户信息 Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SendCodeMerchantInfoMapper extends BaseMapper<SendCodeMerchantInfo> {
 
+    void batchInsert(List<SendCodeMerchantInfo> merchantList);
 }

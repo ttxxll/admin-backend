@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2025-07-22
  */
 @RestController
-@RequestMapping("/sendCodeRecord")
+@RequestMapping("/sendCode")
 public class SendCodeRecordController {
 
 }

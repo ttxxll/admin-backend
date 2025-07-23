@@ -1,7 +1,11 @@
 package admin.service;
 
+import admin.controller.req.SendCodeMerchantPageReq;
+import admin.dto.PageDto;
 import admin.model.SendCodeMerchantInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SendCodeMerchantInfoService extends IService<SendCodeMerchantInfo> {
 
+    PageDto<SendCodeMerchantInfo> pageQuery(SendCodeMerchantPageReq pageReq);
 }
