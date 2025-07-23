@@ -2,13 +2,14 @@ package admin.controller;
 
 
 import admin.common.BaseResult;
+import admin.controller.req.SendCodeMerchantAddReq;
 import admin.controller.req.SendCodeMerchantPageReq;
+import admin.controller.req.SendCodeMerchantUpdateReq;
 import admin.dto.PageDto;
 import admin.model.SendCodeMerchantInfo;
 import admin.service.SendCodeMerchantInfoService;
 import admin.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +43,30 @@ public class SendCodeMerchantController {
             return BaseResult.buildSuccess(pageResult);
         } catch (Exception e) {
             log.error("sendCodeMerchantPage page error!", e);
+            return BaseResult.buildError(e.getMessage());
+        }
+    }
+
+    @PostMapping("/add")
+    public BaseResult addSendCodeMerchant(@RequestBody SendCodeMerchantAddReq addReq) {
+        try {
+            log.info("addSendCodeMerchant begin! req = {}", JsonUtil.obj2Json(addReq));
+            BaseResult baseResult = sendCodeMerchantInfoService.addSendCode(addReq);
+            return baseResult;
+        } catch (Exception e) {
+            log.error("addSendCodeMerchant page error!", e);
+            return BaseResult.buildError(e.getMessage());
+        }
+    }
+
+    @PostMapping("/update")
+    public BaseResult updateSendCodeMerchant(@RequestBody SendCodeMerchantUpdateReq updateReq) {
+        try {
+            log.info("updateSendCodeMerchant begin! req = {}", JsonUtil.obj2Json(updateReq));
+            BaseResult baseResult = sendCodeMerchantInfoService.updateSendCode(updateReq);
+            return baseResult;
+        } catch (Exception e) {
+            log.error("updateSendCodeMerchant page error!", e);
             return BaseResult.buildError(e.getMessage());
         }
     }

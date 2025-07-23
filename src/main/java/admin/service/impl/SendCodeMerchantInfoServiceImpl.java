@@ -1,24 +1,26 @@
 package admin.service.impl;
 
+import admin.common.BaseResult;
+import admin.controller.req.SendCodeMerchantAddReq;
 import admin.controller.req.SendCodeMerchantPageReq;
+import admin.controller.req.SendCodeMerchantUpdateReq;
 import admin.dto.PageDto;
 import admin.model.SendCodeMerchantInfo;
 import admin.dao.SendCodeMerchantInfoMapper;
 import admin.service.SendCodeMerchantInfoService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -44,6 +46,51 @@ public class SendCodeMerchantInfoServiceImpl extends ServiceImpl<SendCodeMerchan
         List<SendCodeMerchantInfo> orderDOIPageRecords = orderDOIPage.getRecords();
         PageDto<SendCodeMerchantInfo> pageDto = new PageDto<>(orderDOIPage.getTotal(), orderDOIPage.getPages(), orderDOIPageRecords);
         return pageDto;
+    }
+
+    @Override
+    public BaseResult addSendCode(SendCodeMerchantAddReq addReq) {
+
+        SendCodeMerchantInfo merchantInfo = new SendCodeMerchantInfo();
+        BeanUtils.copyProperties(addReq, merchantInfo);
+        int insert = sendCodeMerchantMapper.insert(merchantInfo);
+        if (insert != 1) {
+            return BaseResult.buildError();
+        }
+        return BaseResult.buildSuccess();
+    }
+
+    @Override
+    public BaseResult updateSendCode(SendCodeMerchantUpdateReq updateReq) {
+        LambdaUpdateWrapper<SendCodeMerchantInfo> updateWrapper = buildUpdateWrapper(updateReq);
+        sendCodeMerchantMapper.update(null, updateWrapper);
+        return BaseResult.buildSuccess();
+    }
+
+    private LambdaUpdateWrapper<SendCodeMerchantInfo> buildUpdateWrapper(SendCodeMerchantUpdateReq updateReq) {
+        LambdaUpdateWrapper<SendCodeMerchantInfo> updateWrapper = new LambdaUpdateWrapper<>();
+        if (StringUtils.isNotBlank(updateReq.getBizList())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getBizList, updateReq.getBizList());
+        }
+        if (Objects.nonNull(updateReq.getStatus())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getStatus, updateReq.getStatus());
+        }
+        if (StringUtils.isNotBlank(updateReq.getAccount())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getAccount, updateReq.getAccount());
+        }
+        if (StringUtils.isNotBlank(updateReq.getAgentBelong())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getAgentBelong, updateReq.getAgentBelong());
+        }
+        if (Objects.nonNull(updateReq.getAgentLevel())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getAgentLevel, updateReq.getAgentLevel());
+        }
+        if (Objects.nonNull(updateReq.getBizPermissionType())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getBizPermissionType, updateReq.getBizPermissionType());
+        }
+        if (Objects.nonNull(updateReq.getWeight())) {
+            updateWrapper.eq(SendCodeMerchantInfo::getWeight, updateReq.getWeight());
+        }
+        return updateWrapper;
     }
 
     private LambdaQueryWrapper<SendCodeMerchantInfo> buildQueryWrapper(SendCodeMerchantPageReq pageReq) {

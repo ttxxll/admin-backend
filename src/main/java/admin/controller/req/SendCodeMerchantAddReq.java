@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SendCodeMerchantPageReq extends SendCodeMerchantBase {
-    private Integer page;
-    private Integer size;
+public class SendCodeMerchantAddReq extends SendCodeMerchantBase {
+
 }

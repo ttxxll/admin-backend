@@ -65,6 +65,9 @@ public class BaseResult {
         return new BaseResult(-1, null, msg);
     }
 
+    public static BaseResult buildError() {
+        return new BaseResult(-1, null, "");
+    }
 
 
     /**
