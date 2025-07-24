@@ -1,12 +1,12 @@
 package admin.service.impl;
 
 import admin.common.BaseResult;
-import admin.controller.req.SendCodeMerchantAddReq;
-import admin.controller.req.SendCodeMerchantPageReq;
-import admin.controller.req.SendCodeMerchantUpdateReq;
+import admin.controller.req.merchant.SendCodeMerchantAddReq;
+import admin.controller.req.merchant.SendCodeMerchantPageReq;
+import admin.controller.req.merchant.SendCodeMerchantUpdateReq;
+import admin.dao.SendCodeMerchantInfoMapper;
 import admin.dto.PageDto;
 import admin.model.SendCodeMerchantInfo;
-import admin.dao.SendCodeMerchantInfoMapper;
 import admin.service.SendCodeMerchantInfoService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -41,10 +41,10 @@ public class SendCodeMerchantInfoServiceImpl extends ServiceImpl<SendCodeMerchan
     public PageDto<SendCodeMerchantInfo> pageQuery(SendCodeMerchantPageReq pageReq) {
         Page<SendCodeMerchantInfo> pageInfo = new Page<>(pageReq.getPage(), pageReq.getSize());
         LambdaQueryWrapper<SendCodeMerchantInfo> queryWrapper = buildQueryWrapper(pageReq);
-        IPage<SendCodeMerchantInfo> orderDOIPage = sendCodeMerchantMapper.selectPage(pageInfo, queryWrapper);
-        log.info("pageQuery success! list = {}, ", JSONObject.toJSONString(orderDOIPage));
-        List<SendCodeMerchantInfo> orderDOIPageRecords = orderDOIPage.getRecords();
-        PageDto<SendCodeMerchantInfo> pageDto = new PageDto<>(orderDOIPage.getTotal(), orderDOIPage.getPages(), orderDOIPageRecords);
+        IPage<SendCodeMerchantInfo> iPage = sendCodeMerchantMapper.selectPage(pageInfo, queryWrapper);
+        log.info("pageQuery success! list = {}, ", JSONObject.toJSONString(iPage));
+        List<SendCodeMerchantInfo> pageRecords = iPage.getRecords();
+        PageDto<SendCodeMerchantInfo> pageDto = new PageDto<>(iPage.getTotal(), iPage.getPages(), pageRecords);
         return pageDto;
     }
 
@@ -70,25 +70,25 @@ public class SendCodeMerchantInfoServiceImpl extends ServiceImpl<SendCodeMerchan
     private LambdaUpdateWrapper<SendCodeMerchantInfo> buildUpdateWrapper(SendCodeMerchantUpdateReq updateReq) {
         LambdaUpdateWrapper<SendCodeMerchantInfo> updateWrapper = new LambdaUpdateWrapper<>();
         if (StringUtils.isNotBlank(updateReq.getBizList())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getBizList, updateReq.getBizList());
+            updateWrapper.set(SendCodeMerchantInfo::getBizList, updateReq.getBizList());
         }
         if (Objects.nonNull(updateReq.getStatus())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getStatus, updateReq.getStatus());
+            updateWrapper.set(SendCodeMerchantInfo::getStatus, updateReq.getStatus());
         }
         if (StringUtils.isNotBlank(updateReq.getAccount())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getAccount, updateReq.getAccount());
+            updateWrapper.set(SendCodeMerchantInfo::getAccount, updateReq.getAccount());
         }
         if (StringUtils.isNotBlank(updateReq.getAgentBelong())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getAgentBelong, updateReq.getAgentBelong());
+            updateWrapper.set(SendCodeMerchantInfo::getAgentBelong, updateReq.getAgentBelong());
         }
         if (Objects.nonNull(updateReq.getAgentLevel())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getAgentLevel, updateReq.getAgentLevel());
+            updateWrapper.set(SendCodeMerchantInfo::getAgentLevel, updateReq.getAgentLevel());
         }
         if (Objects.nonNull(updateReq.getBizPermissionType())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getBizPermissionType, updateReq.getBizPermissionType());
+            updateWrapper.set(SendCodeMerchantInfo::getBizPermissionType, updateReq.getBizPermissionType());
         }
         if (Objects.nonNull(updateReq.getWeight())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getWeight, updateReq.getWeight());
+            updateWrapper.set(SendCodeMerchantInfo::getWeight, updateReq.getWeight());
         }
         return updateWrapper;
     }

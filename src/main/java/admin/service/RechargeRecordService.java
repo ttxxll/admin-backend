@@ -1,5 +1,10 @@
 package admin.service;
 
+import admin.common.BaseResult;
+import admin.controller.req.recharge.RechargeRecordAddReq;
+import admin.controller.req.recharge.RechargeRecordPageReq;
+import admin.controller.req.recharge.RechargeRecordUpdateReq;
+import admin.dto.PageDto;
 import admin.model.RechargeRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +18,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RechargeRecordService extends IService<RechargeRecord> {
 
+    PageDto<RechargeRecord> rechargeRecordPage(RechargeRecordPageReq pageReq);
+
+    BaseResult addRechargeRecord(RechargeRecordAddReq addReq);
+
+    BaseResult updateRechargeRecord(RechargeRecordUpdateReq updateReq);
 }

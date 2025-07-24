@@ -1,11 +1,12 @@
 package admin.service.impl;
 
-import admin.controller.req.SendCodeMerchantUpdateReq;
+import admin.common.BaseResult;
+import admin.controller.req.codebiz.SendCodeBizInfoAddReq;
 import admin.controller.req.codebiz.SendCodeBizInfoPageReq;
+import admin.controller.req.codebiz.SendCodeBizInfoUpdateReq;
 import admin.dao.SendCodeBizInfoMapper;
 import admin.dto.PageDto;
 import admin.model.SendCodeBizInfo;
-import admin.model.SendCodeMerchantInfo;
 import admin.service.SendCodeBizInfoService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -15,6 +16,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,56 +42,50 @@ public class SendCodeBizInfoServiceImpl extends ServiceImpl<SendCodeBizInfoMappe
     public PageDto<SendCodeBizInfo> pageQuery(SendCodeBizInfoPageReq pageReq) {
         Page<SendCodeBizInfo> pageInfo = new Page<>(pageReq.getPage(), pageReq.getSize());
         LambdaQueryWrapper<SendCodeBizInfo> queryWrapper = buildQueryWrapper(pageReq);
-        IPage<SendCodeBizInfo> orderDOIPage = sendCodeBizInfoMapper.selectPage(pageInfo, queryWrapper);
-        log.info("pageQuery success! list = {}, ", JSONObject.toJSONString(orderDOIPage));
-        List<SendCodeBizInfo> orderDOIPageRecords = orderDOIPage.getRecords();
-        PageDto<SendCodeBizInfo> pageDto = new PageDto<>(orderDOIPage.getTotal(), orderDOIPage.getPages(), orderDOIPageRecords);
+        IPage<SendCodeBizInfo> iPage = sendCodeBizInfoMapper.selectPage(pageInfo, queryWrapper);
+        log.info("pageQuery success! list = {}, ", JSONObject.toJSONString(iPage));
+        List<SendCodeBizInfo> pageRecords = iPage.getRecords();
+        PageDto<SendCodeBizInfo> pageDto = new PageDto<>(iPage.getTotal(), iPage.getPages(), pageRecords);
         return pageDto;
     }
 
+    @Override
+    public BaseResult addSendCodeBiz(SendCodeBizInfoAddReq addReq) {
+        SendCodeBizInfo bizInfo = new SendCodeBizInfo();
+        BeanUtils.copyProperties(addReq, bizInfo);
+        int insert = sendCodeBizInfoMapper.insert(bizInfo);
+        if (insert != 1) {
+            return BaseResult.buildError();
+        }
+        return BaseResult.buildSuccess();
+    }
 
+    @Override
+    public BaseResult updateSendCodeBiz(SendCodeBizInfoUpdateReq updateReq) {
+        LambdaUpdateWrapper<SendCodeBizInfo> updateWrapper = buildUpdateWrapper(updateReq);
+        sendCodeBizInfoMapper.update(null, updateWrapper);
+        return BaseResult.buildSuccess();
+    }
 
-//    @Override
-//    public BaseResult addSendCode(SendCodeMerchantAddReq addReq) {
-//
-//        SendCodeMerchantInfo merchantInfo = new SendCodeMerchantInfo();
-//        BeanUtils.copyProperties(addReq, merchantInfo);
-//        int insert = sendCodeMerchantMapper.insert(merchantInfo);
-//        if (insert != 1) {
-//            return BaseResult.buildError();
-//        }
-//        return BaseResult.buildSuccess();
-//    }
-
-//    @Override
-//    public BaseResult updateSendCode(SendCodeMerchantUpdateReq updateReq) {
-//        LambdaUpdateWrapper<SendCodeMerchantInfo> updateWrapper = buildUpdateWrapper(updateReq);
-//        sendCodeMerchantMapper.update(null, updateWrapper);
-//        return BaseResult.buildSuccess();
-//    }
-
-    private LambdaUpdateWrapper<SendCodeMerchantInfo> buildUpdateWrapper(SendCodeMerchantUpdateReq updateReq) {
-        LambdaUpdateWrapper<SendCodeMerchantInfo> updateWrapper = new LambdaUpdateWrapper<>();
-        if (StringUtils.isNotBlank(updateReq.getBizList())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getBizList, updateReq.getBizList());
+    private LambdaUpdateWrapper<SendCodeBizInfo> buildUpdateWrapper(SendCodeBizInfoUpdateReq updateReq) {
+        LambdaUpdateWrapper<SendCodeBizInfo> updateWrapper = new LambdaUpdateWrapper<>();
+        if (StringUtils.isNotBlank(updateReq.getBizName())) {
+            updateWrapper.set(SendCodeBizInfo::getBizName, updateReq.getBizName());
         }
-        if (Objects.nonNull(updateReq.getStatus())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getStatus, updateReq.getStatus());
+        if (StringUtils.isNotBlank(updateReq.getBizCode())) {
+            updateWrapper.set(SendCodeBizInfo::getBizCode, updateReq.getBizCode());
         }
-        if (StringUtils.isNotBlank(updateReq.getAccount())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getAccount, updateReq.getAccount());
+        if (StringUtils.isNotBlank(updateReq.getSendPlatformCode())) {
+            updateWrapper.set(SendCodeBizInfo::getSendPlatformCode, updateReq.getSendPlatformCode());
         }
-        if (StringUtils.isNotBlank(updateReq.getAgentBelong())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getAgentBelong, updateReq.getAgentBelong());
+        if (StringUtils.isNotBlank(updateReq.getSendPlatformName())) {
+            updateWrapper.set(SendCodeBizInfo::getSendPlatformName, updateReq.getSendPlatformName());
         }
-        if (Objects.nonNull(updateReq.getAgentLevel())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getAgentLevel, updateReq.getAgentLevel());
+        if (null != updateReq.getStatus()) {
+            updateWrapper.set(SendCodeBizInfo::getStatus, updateReq.getStatus());
         }
-        if (Objects.nonNull(updateReq.getBizPermissionType())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getBizPermissionType, updateReq.getBizPermissionType());
-        }
-        if (Objects.nonNull(updateReq.getWeight())) {
-            updateWrapper.eq(SendCodeMerchantInfo::getWeight, updateReq.getWeight());
+        if (null != updateReq.getUnitPrice()) {
+            updateWrapper.set(SendCodeBizInfo::getUnitPrice, updateReq.getUnitPrice());
         }
         return updateWrapper;
     }

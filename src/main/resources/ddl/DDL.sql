@@ -67,18 +67,19 @@ CREATE TABLE `send_code_record` (
     KEY `idx_issued_code` (`issued_code`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='下发编码记录';
 
-
+DROP TABLE IF EXISTS `send_code_platform_info`;
 CREATE TABLE `send_code_platform_info` (
    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
    `send_platform_code` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '发送平台编码',
    `send_platform_name` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '发送平台名称',
+   `status` TINYINT NOT NULL DEFAULT 0 COMMENT '状态：0-禁用，1-启用',
    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY (`id`),
    UNIQUE KEY `uk_platform_code` (`send_platform_code`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='下发编码平台';
 
-
+DROP TABLE IF EXISTS `recharge_record`;
 CREATE TABLE `recharge_record` (
    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
    `recharge_quantity` INT NOT NULL DEFAULT 0 COMMENT '充值数量',
@@ -88,6 +89,7 @@ CREATE TABLE `recharge_record` (
    `biz_name` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '业务名称',
    `send_platform_code` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '发送平台编码',
    `send_platform_name` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '发送平台名称',
+   `status` TINYINT NOT NULL DEFAULT 0 COMMENT '状态：0-禁用，1-启用',
    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY (`id`),

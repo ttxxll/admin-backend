@@ -2,7 +2,9 @@ package admin.controller;
 
 
 import admin.common.BaseResult;
+import admin.controller.req.codebiz.SendCodeBizInfoAddReq;
 import admin.controller.req.codebiz.SendCodeBizInfoPageReq;
+import admin.controller.req.codebiz.SendCodeBizInfoUpdateReq;
 import admin.dto.PageDto;
 import admin.model.SendCodeBizInfo;
 import admin.service.SendCodeBizInfoService;
@@ -42,28 +44,28 @@ public class SendCodeBizController {
         }
     }
 
-//    @PostMapping("/add")
-//    public BaseResult addSendCodeBiz(@RequestBody SendCodeMerchantAddReq addReq) {
-//        try {
-//            log.info("addSendCodeBiz begin! req = {}", JsonUtil.obj2Json(addReq));
-//            BaseResult baseResult = sendCodeBizInfoService.addSendCodeBiz(addReq);
-//            return baseResult;
-//        } catch (Exception e) {
-//            log.error("addSendCodeBiz page error!", e);
-//            return BaseResult.buildError(e.getMessage());
-//        }
-//    }
-//
-//    @PostMapping("/update")
-//    public BaseResult updateSendCodeBiz(@RequestBody SendCodeMerchantUpdateReq updateReq) {
-//        try {
-//            log.info("updateSendCodeBiz begin! req = {}", JsonUtil.obj2Json(updateReq));
-//            BaseResult baseResult = sendCodeBizInfoService.updateSendCodeBiz(updateReq);
-//            return baseResult;
-//        } catch (Exception e) {
-//            log.error("updateSendCodeBiz page error!", e);
-//            return BaseResult.buildError(e.getMessage());
-//        }
-//    }
+    @PostMapping("/add")
+    public BaseResult addSendCodeBiz(@RequestBody SendCodeBizInfoAddReq addReq) {
+        try {
+            log.info("addSendCodeBiz begin! req = {}", JsonUtil.obj2Json(addReq));
+            BaseResult baseResult = sendCodeBizInfoService.addSendCodeBiz(addReq);
+            return baseResult;
+        } catch (Exception e) {
+            log.error("addSendCodeBiz page error!", e);
+            return BaseResult.buildError(e.getMessage());
+        }
+    }
+
+    @PostMapping("/update")
+    public BaseResult updateSendCodeBiz(@RequestBody SendCodeBizInfoUpdateReq updateReq) {
+        try {
+            log.info("updateSendCodeBiz begin! req = {}", JsonUtil.obj2Json(updateReq));
+            BaseResult baseResult = sendCodeBizInfoService.updateSendCodeBiz(updateReq);
+            return baseResult;
+        } catch (Exception e) {
+            log.error("updateSendCodeBiz page error!", e);
+            return BaseResult.buildError(e.getMessage());
+        }
+    }
 }
 

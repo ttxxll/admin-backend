@@ -1,14 +1,12 @@
 package admin.service;
 
 import admin.common.BaseResult;
-import admin.controller.req.SendCodeMerchantAddReq;
-import admin.controller.req.SendCodeMerchantPageReq;
-import admin.controller.req.SendCodeMerchantUpdateReq;
+import admin.controller.req.merchant.SendCodeMerchantAddReq;
+import admin.controller.req.merchant.SendCodeMerchantPageReq;
+import admin.controller.req.merchant.SendCodeMerchantUpdateReq;
 import admin.dto.PageDto;
 import admin.model.SendCodeMerchantInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.Map;
 
 /**
  * <p>

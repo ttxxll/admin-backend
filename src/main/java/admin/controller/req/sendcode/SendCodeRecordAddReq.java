@@ -1,10 +1,10 @@
-package admin.controller.req;
+package admin.controller.req.sendcode;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SendCodeMerchantUpdateReq extends SendCodeMerchantBase {
+public class SendCodeRecordAddReq extends SendCodeRecordBase{
 
 }

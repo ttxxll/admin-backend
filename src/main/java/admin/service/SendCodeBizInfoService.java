@@ -1,6 +1,9 @@
 package admin.service;
 
+import admin.common.BaseResult;
+import admin.controller.req.codebiz.SendCodeBizInfoAddReq;
 import admin.controller.req.codebiz.SendCodeBizInfoPageReq;
+import admin.controller.req.codebiz.SendCodeBizInfoUpdateReq;
 import admin.dto.PageDto;
 import admin.model.SendCodeBizInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -16,4 +19,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface SendCodeBizInfoService extends IService<SendCodeBizInfo> {
 
     PageDto<SendCodeBizInfo> pageQuery(SendCodeBizInfoPageReq pageReq);
+
+    BaseResult addSendCodeBiz(SendCodeBizInfoAddReq addReq);
+
+    BaseResult updateSendCodeBiz(SendCodeBizInfoUpdateReq updateReq);
 }

@@ -1,4 +1,4 @@
-package admin.controller.req;
+package admin.controller.req.merchant;
 
 import lombok.Data;
 
