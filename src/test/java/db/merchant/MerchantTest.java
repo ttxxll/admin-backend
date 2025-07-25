@@ -1,6 +1,7 @@
 package db.merchant;
 
 import admin.AdminBackendMain;
+import admin.common.RolesEnum;
 import admin.dao.SendCodeMerchantInfoMapper;
 import admin.model.SendCodeMerchantInfo;
 import admin.utils.JsonUtil;
@@ -11,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AdminBackendMain.class)
@@ -29,7 +28,7 @@ public class MerchantTest {
     @Test
     public void batchRandomInsertMerchant() {
         List<SendCodeMerchantInfo> merchantList = new ArrayList<>();
-
+        List<String> roleList = Arrays.stream(RolesEnum.values()).map(RolesEnum::getRole).collect(Collectors.toList());
         for (int i = 1; i <= 100; i++) {
             SendCodeMerchantInfo info = new SendCodeMerchantInfo();
             info.setAccount("merchant_" + String.format("%03d", i));
@@ -40,10 +39,11 @@ public class MerchantTest {
             info.setBizPermissionType(random.nextInt(3) - 1);  // -1, 0, 1
             info.setBizList(generateRandomBizList());
             info.setIpWhitelist(generateRandomIPs());
+            info.setRoles(String.join(",", roleList));
+            info.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
             info.setStatus(random.nextBoolean() ? 1 : 0);
             info.setCreateTime(randomDate());
             info.setUpdateTime(randomDate());
-
             merchantList.add(info);
         }
         merchantInfoMapper.batchInsert(merchantList);

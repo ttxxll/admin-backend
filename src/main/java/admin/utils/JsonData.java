@@ -1,18 +1,24 @@
-package admin.common;
+package admin.utils;
 
+import admin.enums.BizCodeEnum;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author taoxinglong
+ * @description 响应工具类
+ * @date 2023-11-19 15:56
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseResult {
+public class JsonData {
 
     /**
-     * 状态码 20000 表示成功
+     * 状态码 0 表示成功
      */
     private Integer code;
 
@@ -43,8 +49,8 @@ public class BaseResult {
      * 成功，不传入数据
      * @return
      */
-    public static BaseResult buildSuccess() {
-        return new BaseResult(20000, null, null);
+    public static JsonData buildSuccess() {
+        return new JsonData(0, null, null);
     }
 
     /**
@@ -52,8 +58,8 @@ public class BaseResult {
      * @param data
      * @return
      */
-    public static BaseResult buildSuccess(Object data) {
-        return new BaseResult(20000, data, "success");
+    public static JsonData buildSuccess(Object data) {
+        return new JsonData(0, data, null);
     }
 
     /**
@@ -61,13 +67,10 @@ public class BaseResult {
      * @param msg
      * @return
      */
-    public static BaseResult buildError(String msg) {
-        return new BaseResult(-1, null, msg);
+    public static JsonData buildError(String msg) {
+        return new JsonData(-1, null, msg);
     }
 
-    public static BaseResult buildError() {
-        return new BaseResult(-1, null, "");
-    }
 
 
     /**
@@ -76,8 +79,16 @@ public class BaseResult {
      * @param msg
      * @return
      */
-    public static BaseResult buildCodeAndMsg(int code, String msg) {
-        return new BaseResult(code, null, msg);
+    public static JsonData buildCodeAndMsg(int code, String msg) {
+        return new JsonData(code, null, msg);
     }
 
+    /**
+     * 传入枚举，返回信息
+     * @param codeEnum
+     * @return
+     */
+    public static JsonData buildResult(BizCodeEnum codeEnum){
+        return JsonData.buildCodeAndMsg(codeEnum.getCode(),codeEnum.getMessage());
+    }
 }

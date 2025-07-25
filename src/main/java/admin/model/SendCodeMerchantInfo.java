@@ -1,12 +1,13 @@
 package admin.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -63,6 +64,16 @@ public class SendCodeMerchantInfo implements Serializable {
      * 授权业务列表
      */
     private String bizList;
+
+    /**
+     * 角色列表
+     */
+    private String roles;
+
+    /**
+     * 头像
+     */
+    private String avatar;
 
     /**
      * IP白名单（多个IP用逗号分隔）

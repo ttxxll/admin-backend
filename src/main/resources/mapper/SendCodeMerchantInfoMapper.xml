@@ -13,6 +13,8 @@
         <result column="biz_permission_type" property="bizPermissionType" />
         <result column="biz_list" property="bizList" />
         <result column="ip_whitelist" property="ipWhitelist" />
+        <result column="roles" property="roles" />
+        <result column="avatar" property="avatar" />
         <result column="status" property="status" />
         <result column="update_time" property="updateTime" />
         <result column="create_time" property="createTime" />
@@ -20,20 +22,20 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, account, pwd, agent_level, agent_belong, weight, biz_permission_type, biz_list, ip_whitelist, status, update_time, create_time
+        id, account, pwd, agent_level, agent_belong, weight, biz_permission_type, biz_list, ip_whitelist, roles, avatar, status, update_time, create_time
     </sql>
 
     <insert id="batchInsert">
         INSERT INTO send_code_merchant_info
         (account, pwd, agent_level, agent_belong, weight,
-        biz_permission_type, biz_list, ip_whitelist, status,
+        biz_permission_type, biz_list, ip_whitelist, roles, avatar, status,
         update_time, create_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (
             #{item.account}, #{item.pwd}, #{item.agentLevel}, #{item.agentBelong}, #{item.weight},
-            #{item.bizPermissionType}, #{item.bizList}, #{item.ipWhitelist}, #{item.status},
-            #{item.updateTime}, #{item.createTime}
+            #{item.bizPermissionType}, #{item.bizList}, #{item.ipWhitelist}, #{item.roles}, #{item.avatar},
+            #{item.status},#{item.updateTime}, #{item.createTime}
             )
         </foreach>
     </insert>
